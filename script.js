@@ -9,7 +9,7 @@ function getComputerChoice() {
 }
 
 function playRound(humanChoice) {
-    if (roundCount >= maxRounds) return; // Stop the game if 5 rounds are played
+    if (humanScore >= maxRounds || computerScore >= maxRounds) return; // Stop the game if 5 rounds are played
 
     roundCount++;
     const computerChoice = getComputerChoice();
@@ -32,7 +32,8 @@ function playRound(humanChoice) {
     updateUI(humanChoice, computerChoice, result);
 
     // Check if the game is over
-    if (roundCount === maxRounds) {
+    if (humanScore === maxRounds || computerScore === maxRounds) {
+        // Disable buttons to prevent further play
         declareWinner();
         disableButtons();
     }
@@ -43,7 +44,7 @@ function updateUI(humanChoice, computerChoice, result) {
         `You chose: ${humanChoice}<br>Computer chose: ${computerChoice}<br><strong>${result}</strong>`;
     document.getElementById("human-score").textContent = `Your Score: ${humanScore}`;
     document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`;
-    document.getElementById("round-count").textContent = `Round: ${roundCount} / ${maxRounds}`;
+    document.getElementById("round-count").textContent = `Round: ${roundCount}`;
 }
 
 function declareWinner() {
